@@ -15,36 +15,19 @@ export const defaultStyles: string = `
   .barchart-container .y-tick { display: flex; align-items: center; height: 0; position: relative; }
   .barchart-container .y-tick-value { font-size: 12px; min-width: 30px; text-align: right; }
   .barchart-container .y-tick-line { position: absolute; left: 38px; right: -10px; z-index: 1; }
-  .barchart-container .chart-area { flex: 1; display: flex; flex-direction: column; position: relative; }
-
-  .barchart-container .bars-container { height: 100%; display: flex; justify-content: space-around; align-items: flex-end; padding: 0 5px; }
-
+  .barchart-container .x-axis { display: flex; justify-content: space-around; padding-top: 5px; flex-shrink: 0; }
+  .barchart-container .x-tick { font-size: 11px; overflow: hidden; text-overflow: ellipsis; text-align: center; }
   .barchart-container .target-line { position: absolute; left: 0; right: 0; height: 1px; z-index: 2; }
 
-  .barchart-container .bar-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: end;
-    width: 100%;
-    height: 100%;
-    max-width: 50px;
-    margin: 0 2px;
-  }
+  .barchart-container .chart-area { flex: 1; display: flex; flex-direction: column; position: relative; }
 
+  .barchart-container .chart-main { display: flex; flex-direction: column; flex: 1; overflow-x: auto; }
+  .barchart-container .chart-main::-webkit-scrollbar { display: none; }
+  .barchart-container .chart-main { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .barchart-container .bars-container { flex: 1; display: flex; justify-content: space-around; align-items: flex-end; padding: 0 5px; }
+  .barchart-container .bar-column { display: flex; flex-direction: column; align-items: center; justify-content: end; height: 100%; margin: 0 2px; }
   .barchart-container .bar-column .bar { width: 60%; border-radius: 4px 4px 0 0; transition: height 0.4s ease; z-index: 3; }
-
-  .barchart-container .bar-column .bar-label {
-    margin-top: 8px;
-    font-size: 11px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100%;
-    text-align: center;
-  }
-
-  .barchart-container .no-data-badge {
-    align-self: center;
-  }
-`
+  .barchart-container .bar-column .bar-label { margin-top: 8px; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: center; }
+  .barchart-container .no-data-badge { align-self: center; }
+`;

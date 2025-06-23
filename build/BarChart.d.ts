@@ -14,6 +14,9 @@ export interface BarChartProps {
     colors?: ChartColors;
     height?: number;
     noDataText?: string;
+    barWidth?: number;
+    showXAxis?: boolean;
+    showYAxis?: boolean;
 }
-export declare const BarChart: ({ data, valueField, labelField, targetLine, className, colors, height, noDataText }: BarChartProps) => import("react/jsx-runtime").JSX.Element;
+export declare const BarChart: ({ data, valueField, labelField, targetLine, className, colors, height, noDataText, barWidth, showXAxis, showYAxis }: BarChartProps) => import("react/jsx-runtime").JSX.Element;
 export default BarChart;
