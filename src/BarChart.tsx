@@ -19,9 +19,9 @@ export interface BarChartProps {
   showXAxis?: boolean;
   showYAxis?: boolean;
   customStyles?: {
-    barStyle?: React.CSSProperties,
-    XAxisStyle?: React.CSSProperties,
-    YAxisStyle?: React.CSSProperties
+    bar?: React.CSSProperties,
+    xAxis?: React.CSSProperties,
+    yAxis?: React.CSSProperties
   }
 }
 
@@ -55,9 +55,9 @@ export const BarChart = ({
 
   const yScale = generateYScale();
   const maxScaleValue = Math.max(...yScale);
-  const barStyles = customStyles && customStyles.barStyle ? customStyles.barStyle : {};
-  const yAxisStyles = customStyles && customStyles.YAxisStyle ? customStyles.YAxisStyle : {};
-  const xAxisStyles = customStyles && customStyles.XAxisStyle ? customStyles.XAxisStyle : {};
+  const barStyles = customStyles && customStyles.bar ? customStyles.bar : {};
+  const yAxisStyles = customStyles && customStyles.yAxis ? customStyles.yAxis : {};
+  const xAxisStyles = customStyles && customStyles.xAxis ? customStyles.xAxis : {};
 
   const renderYScale = (
     <div className="y-axis" style={{ borderRight: `1px solid ${chartColors.gridLine}`, ...yAxisStyles }}>

@@ -37,9 +37,9 @@ export var BarChart = function (_a) {
     };
     var yScale = generateYScale();
     var maxScaleValue = Math.max.apply(Math, yScale);
-    var barStyles = customStyles && customStyles.barStyle ? customStyles.barStyle : {};
-    var yAxisStyles = customStyles && customStyles.YAxisStyle ? customStyles.YAxisStyle : {};
-    var xAxisStyles = customStyles && customStyles.XAxisStyle ? customStyles.XAxisStyle : {};
+    var barStyles = customStyles && customStyles.bar ? customStyles.bar : {};
+    var yAxisStyles = customStyles && customStyles.yAxis ? customStyles.yAxis : {};
+    var xAxisStyles = customStyles && customStyles.xAxis ? customStyles.xAxis : {};
     var renderYScale = (_jsx("div", { className: "y-axis", style: __assign({ borderRight: "1px solid ".concat(chartColors.gridLine) }, yAxisStyles), children: yScale.map(function (value) { return (_jsxs("div", { className: "y-tick", children: [_jsx("span", { className: "y-tick-value", style: { color: chartColors.text }, children: value }), _jsx("div", { className: "y-tick-line", style: { borderTop: "1px dashed ".concat(chartColors.gridLine) } })] }, value)); }) }));
     return (_jsxs(_Fragment, { children: [_jsx("style", { children: gerDefaultStyles() }), _jsx("div", { className: "barchart-container".concat(className ? ' ' + className : ''), style: { backgroundColor: chartColors.background }, children: _jsxs("div", { className: "barchart-content", style: { height: "".concat(height, "px") }, children: [showYAxis && renderYScale, _jsxs("div", { className: "chart-area", children: [_jsxs("div", { className: "chart-main", children: [_jsx("div", { className: "bars-container", children: hasData ? valuesData.map(function (item, index) {
                                                 var heightPercent = maxScaleValue > 0 ? (item / maxScaleValue) * 100 : 0;

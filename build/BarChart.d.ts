@@ -16,9 +16,9 @@ export interface BarChartProps {
     showXAxis?: boolean;
     showYAxis?: boolean;
     customStyles?: {
-        barStyle?: React.CSSProperties;
-        XAxisStyle?: React.CSSProperties;
-        YAxisStyle?: React.CSSProperties;
+        bar?: React.CSSProperties;
+        xAxis?: React.CSSProperties;
+        yAxis?: React.CSSProperties;
     };
 }
 export declare const BarChart: ({ valuesData, labelsData, targetLine, className, colors, height, noDataText, barWidth, showXAxis, showYAxis, customStyles }: BarChartProps) => import("react/jsx-runtime").JSX.Element;

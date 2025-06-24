@@ -11,28 +11,25 @@ npm i @gratio/bar-chart
 ### Использование:
 
 ```tsx
-const sampleData = [
-  { calories: 52, proteins: 0.9, fats: 2.1, date: '01.02.23' },
-  { calories: 177, proteins: 7.5, fats: 9.5, date: '12.02.23' },
-  { calories: 0, proteins: 0, fats: 0, date: '15.02.23' }
-];
+const sampleData = [ 1223, 323, 122, 43, 555 ];
+const labels = [ 'Пн', 'Вт', 'Ср', 'Чт', 'Пт' ];
 
 <BarChart
-  data={sampleData}
-  valueField="calories" // ключ поля, из которого брать значения
-  labelField="date" // ключ поля, из которого брать подписи
+  valuesData={sampleData} // Массив значений
+  labelsData={labels} // Массив с подписями горизонтальной оси
   colors={{ background: '#fff' }}
   height={300} // px
   targetLine=""
   className="container-class"
   noDataText="Нет данных"
   barWidth={15}
-  showXAxis={false}
+  showXAxis={true}
   showYAxis={true}
-  customStyles={
+  customStyles={{
     bar: { background: 'linear-gradient(180deg, #83EC4A 0%, #585858 84.62%)' },
-    YAxis: { border: 'none' }
-  }
+    yAxis: { borderRight: '0 !important' }, // Чтобы спрятать линию оси
+    xAxis: { marginRight: '10px', borderTopWidth: '2px' }
+  }}
 />
 ```
 
@@ -47,9 +44,8 @@ export interface ChartColors {
 }
 
 export interface BarChartProps {
-  data: Array<Record<string, number>>;
-  valueField: string;
-  labelField: string;
+  valuesData: number[];
+  labelsData: string[] | number[];
   targetLine?: number;
   className?: string;
   colors?: ChartColors;
