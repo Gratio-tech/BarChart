@@ -3,7 +3,7 @@
   "main": "build/BarChart.js",
   "types": "build/BarChart.d.ts",
   "files": [ "build" ],
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "Simple bar graph",
   "scripts": {
     "build": "tsc",

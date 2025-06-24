@@ -1,7 +1,6 @@
-import { defaultColors, defaultStyles } from './defaultStyles';
+import { defaultColors, gerDefaultStyles } from './defaultStyles';
 
 export interface ChartColors {
-  bar?: string;
   text?: string;
   gridLine?: string;
   targetLine?: string;
@@ -9,7 +8,7 @@ export interface ChartColors {
 }
 
 export interface BarChartProps {
-  data: Array<Record<string, any>>;
+  data: Array<Record<string, number>>;
   valueField: string;
   labelField: string;
   targetLine?: number;
@@ -20,6 +19,11 @@ export interface BarChartProps {
   barWidth?: number;
   showXAxis?: boolean;
   showYAxis?: boolean;
+  customStyles?: {
+    barStyle: React.CSSProperties,
+    XAxisStyle: React.CSSProperties,
+    YAxisStyle: React.CSSProperties
+  }
 }
 
 export const BarChart = ({
@@ -32,11 +36,13 @@ export const BarChart = ({
   height = 300,
   noDataText,
   barWidth,
-  showXAxis = false,
-  showYAxis = true
+  showXAxis = true,
+  showYAxis = false,
+  customStyles
 }: BarChartProps) => {
   const chartColors = { ...defaultColors, ...colors };
-  const hasData = Array.isArray(data) && data.length > 0;
+  const hasData = Array.isArray(data) &&
+    data.filter(item => item && typeof item === 'number' && item[valueField] > 0).length > 0;
 
   const maxValue = hasData ? Math.max(
     ...data.map(item => item[valueField]),
@@ -54,9 +60,12 @@ export const BarChart = ({
 
   const yScale = generateYScale();
   const maxScaleValue = Math.max(...yScale);
+  const barStyles = customStyles && customStyles.barStyle ? customStyles.barStyle : {};
+  const yAxisStyles = customStyles && customStyles.YAxisStyle ? customStyles.YAxisStyle : {};
+  const xAxisStyles = customStyles && customStyles.XAxisStyle ? customStyles.XAxisStyle : {};
 
-  const renderYScale = showYAxis && (
-    <div className="y-axis" style={{ borderRight: `1px solid ${chartColors.gridLine}` }}>
+  const renderYScale = (
+    <div className="y-axis" style={{ borderRight: `1px solid ${chartColors.gridLine}`, ...yAxisStyles }}>
       {yScale.map((value) => (
         <div key={value} className="y-tick">
           <span className="y-tick-value" style={{ color: chartColors.text }}>{value}</span>
@@ -72,19 +81,17 @@ export const BarChart = ({
 
   return (
     <>
-      <style>{defaultStyles}</style>
+      <style>{gerDefaultStyles()}</style>
 
       <div className={`barchart-container${className ? ' ' + className : ''}`} style={{ backgroundColor: chartColors.background }}>
         <div className="barchart-content" style={{ height: `${height}px` }}>
-          {renderYScale}
+          {showYAxis && renderYScale}
 
           <div className="chart-area">
             <div className="chart-main">
               <div
                 className="bars-container"
-                style={{
-                  width: barContainerWidth ? `${barContainerWidth}px` : '100%'
-                }}
+                style={{ width: barContainerWidth ? `${barContainerWidth}px` : '100%' }}
               >
                 {hasData ? data.map((item, index) => {
                   const value = item[valueField];
@@ -96,7 +103,7 @@ export const BarChart = ({
                       className="bar-column"
                       style={{ width: barWidth ? `${barWidth}px` : '100%' }}
                     >
-                      <div className="bar" style={{ height: `${heightPercent}%`, background: chartColors.bar }} />
+                      <div className="bar" style={{ height: `${heightPercent}%`, ...barStyles }} />
                       <div className="bar-label" style={{ color: chartColors.text }}>
                         {item[labelField]}
                       </div>
@@ -107,11 +114,8 @@ export const BarChart = ({
 
               {showXAxis && hasData && (
                 <div
-                  className="x-axis"
-                  style={{
-                    width: barContainerWidth ? `${barContainerWidth}px` : '100%',
-                    borderTop: `1px solid ${chartColors.gridLine}`
-                  }}
+                  className={showYAxis ? "x-axis" : "x-axis with-padding" }
+                  style={{ borderTop: `1px solid ${chartColors.gridLine}`, ...xAxisStyles }}
                 >
                   {data.map((item, index) => (
                     <div
