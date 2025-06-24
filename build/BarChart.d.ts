@@ -5,9 +5,8 @@ export interface ChartColors {
     background?: string;
 }
 export interface BarChartProps {
-    data: Array<Record<string, number>>;
-    valueField: string;
-    labelField: string;
+    valuesData: number[];
+    labelsData: string[] | number[];
     targetLine?: number;
     className?: string;
     colors?: ChartColors;
@@ -17,10 +16,10 @@ export interface BarChartProps {
     showXAxis?: boolean;
     showYAxis?: boolean;
     customStyles?: {
-        barStyle: React.CSSProperties;
-        XAxisStyle: React.CSSProperties;
-        YAxisStyle: React.CSSProperties;
+        barStyle?: React.CSSProperties;
+        XAxisStyle?: React.CSSProperties;
+        YAxisStyle?: React.CSSProperties;
     };
 }
-export declare const BarChart: ({ data, valueField, labelField, targetLine, className, colors, height, noDataText, barWidth, showXAxis, showYAxis, customStyles }: BarChartProps) => import("react/jsx-runtime").JSX.Element;
+export declare const BarChart: ({ valuesData, labelsData, targetLine, className, colors, height, noDataText, barWidth, showXAxis, showYAxis, customStyles }: BarChartProps) => import("react/jsx-runtime").JSX.Element;
 export default BarChart;

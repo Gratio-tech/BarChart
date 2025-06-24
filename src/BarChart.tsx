@@ -8,9 +8,8 @@ export interface ChartColors {
 }
 
 export interface BarChartProps {
-  data: Array<Record<string, number>>;
-  valueField: string;
-  labelField: string;
+  valuesData: number[];
+  labelsData: string[] | number[];
   targetLine?: number;
   className?: string;
   colors?: ChartColors;
@@ -20,16 +19,15 @@ export interface BarChartProps {
   showXAxis?: boolean;
   showYAxis?: boolean;
   customStyles?: {
-    barStyle: React.CSSProperties,
-    XAxisStyle: React.CSSProperties,
-    YAxisStyle: React.CSSProperties
+    barStyle?: React.CSSProperties,
+    XAxisStyle?: React.CSSProperties,
+    YAxisStyle?: React.CSSProperties
   }
 }
 
 export const BarChart = ({
-  data,
-  valueField,
-  labelField,
+  valuesData,
+  labelsData,
   targetLine,
   className,
   colors = {},
@@ -41,13 +39,10 @@ export const BarChart = ({
   customStyles
 }: BarChartProps) => {
   const chartColors = { ...defaultColors, ...colors };
-  const hasData = Array.isArray(data) &&
-    data.filter(item => item && typeof item[valueField] === 'number' && item[valueField] > 0).length > 0;
+  const hasData = Array.isArray(valuesData) &&
+    valuesData.filter(item => item && typeof item === 'number' && item > 0).length > 0;
 
-  const maxValue = hasData ? Math.max(
-    ...data.map(item => item[valueField]),
-    targetLine || 0
-  ) : 0;
+  const maxValue = hasData ? Math.max(...valuesData.filter(Boolean), targetLine || 0) : 0;
 
   const generateYScale = () => {
     if (maxValue === 0) return [0];
@@ -75,10 +70,6 @@ export const BarChart = ({
     </div>
   );
 
-  const barContainerWidth = barWidth && hasData
-    ? (barWidth + 4) * data.length
-    : undefined;
-
   return (
     <>
       <style>{gerDefaultStyles()}</style>
@@ -89,24 +80,17 @@ export const BarChart = ({
 
           <div className="chart-area">
             <div className="chart-main">
-              <div
-                className="bars-container"
-                style={{ width: barContainerWidth ? `${barContainerWidth}px` : '100%' }}
-              >
-                {hasData ? data.map((item, index) => {
-                  const value = item[valueField];
-                  const heightPercent = maxScaleValue > 0 ? (value / maxScaleValue) * 100 : 0;
-
+              <div className="bars-container">
+                {hasData ? valuesData.map((item, index) => {
+                  const heightPercent = maxScaleValue > 0 ? (item / maxScaleValue) * 100 : 0;
                   return (
                     <div
-                      key={`barchart-${valueField}-${index}-bar`}
+                      key={`barchart-${className ? className : 'grahp'}-${index}-bar`}
                       className="bar-column"
                       style={{ width: barWidth ? `${barWidth}px` : '100%' }}
                     >
                       <div className="bar" style={{ height: `${heightPercent}%`, ...barStyles }} />
-                      <div className="bar-label" style={{ color: chartColors.text }}>
-                        {item[labelField]}
-                      </div>
+                      {/*<div className="bar-label" style={{ color: chartColors.text }}>{item}</div>*/}
                     </div>
                   );
                 }) : <div className="no-data-badge" style={{ color: chartColors.gridLine }} >{noDataText ? noDataText : 'No data'}</div>}
@@ -117,17 +101,9 @@ export const BarChart = ({
                   className={showYAxis ? "x-axis" : "x-axis with-padding" }
                   style={{ borderTop: `1px solid ${chartColors.gridLine}`, ...xAxisStyles }}
                 >
-                  {data.map((item, index) => (
-                    <div
-                      key={`x-axis-${index}`}
-                      className="x-tick"
-                      style={{
-                        color: chartColors.text,
-                        width: barWidth ? `${barWidth}px` : 'auto',
-                        ...(barWidth ? { margin: '0 2px' } : {})
-                      }}
-                    >
-                      {item[labelField]}
+                  {labelsData.map((item, index) => (
+                    <div key={`x-axis-${index}`} className="x-tick">
+                      {item}
                     </div>
                   ))}
                 </div>
