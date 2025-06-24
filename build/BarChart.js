@@ -24,7 +24,7 @@ export var BarChart = function (_a) {
     var data = _a.data, valueField = _a.valueField, labelField = _a.labelField, targetLine = _a.targetLine, className = _a.className, _b = _a.colors, colors = _b === void 0 ? {} : _b, _c = _a.height, height = _c === void 0 ? 300 : _c, noDataText = _a.noDataText, barWidth = _a.barWidth, _d = _a.showXAxis, showXAxis = _d === void 0 ? true : _d, _e = _a.showYAxis, showYAxis = _e === void 0 ? false : _e, customStyles = _a.customStyles;
     var chartColors = __assign(__assign({}, defaultColors), colors);
     var hasData = Array.isArray(data) &&
-        data.filter(function (item) { return item && typeof item === 'number' && item[valueField] > 0; }).length > 0;
+        data.filter(function (item) { return item && typeof item[valueField] === 'number' && item[valueField] > 0; }).length > 0;
     var maxValue = hasData ? Math.max.apply(Math, __spreadArray(__spreadArray([], data.map(function (item) { return item[valueField]; }), false), [targetLine || 0], false)) : 0;
     var generateYScale = function () {
         if (maxValue === 0)

@@ -42,7 +42,7 @@ export const BarChart = ({
 }: BarChartProps) => {
   const chartColors = { ...defaultColors, ...colors };
   const hasData = Array.isArray(data) &&
-    data.filter(item => item && typeof item === 'number' && item[valueField] > 0).length > 0;
+    data.filter(item => item && typeof item[valueField] === 'number' && item[valueField] > 0).length > 0;
 
   const maxValue = hasData ? Math.max(
     ...data.map(item => item[valueField]),
