@@ -1,4 +1,6 @@
 ## BarChart
+[![npm version](https://img.shields.io/npm/v/@gratio/bar-chart?color=%23047dec)](https://www.npmjs.org/package/@gratio/bar-chart)
+
 Модуль для отображения простой столбчатой диаграммы в реакт-компонентах.
 
 Пакет [есть в публичном npm-репозитории](https://www.npmjs.com/package/@gratio/bar-chart).
